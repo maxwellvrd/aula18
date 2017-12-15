@@ -19,10 +19,16 @@ public class ConexaoDAO {
 	}
 	
 	protected Connection getConnection() throws SQLException{
-		String url = "jdbc:mysql://localhost/aula18";
+		String url = "jdbc:mysql://localhost/banco";
 		Connection conn = DriverManager.getConnection(url, "root", "");
 		return conn;
 	}
 	
+	public static void main(String[] args) throws SQLException {
+		ConexaoDAO db = new ConexaoDAO();
+		// Testa a conexão
+		Connection conn = db.getConnection();
+		System.out.println(conn);
+	}
 }
 
