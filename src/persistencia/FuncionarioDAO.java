@@ -2,9 +2,11 @@ package persistencia;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import entidade.Produto;
+import entidade.Usuario;
 import entidade.Funcionario;
 
 public class FuncionarioDAO extends ConexaoDAO {
@@ -44,5 +46,33 @@ public class FuncionarioDAO extends ConexaoDAO {
 				stmt.close();
 		}
 	}
+public Usuario control(Usuario usuario) throws SQLException{
+		
+		PreparedStatement stmt = null;
+		Usuario usu = null;
+		ResultSet rs = null;
+		try {
+			stmt = conn.prepareStatement("select * from usuario where usuario like ? and senha = md5(?)");
+			stmt.setString(1, usuario.getUsuario());
+			stmt.setString(2, usuario.getSenha()); 
+			rs = stmt.executeQuery();
+			if(rs.next()) {
+				usu = new Usuario();
+				usu.setUsuario(rs.getString(1));
+				usu.setSenha(rs.getString(2));
+				
+			}
+		}finally {
+			if(conn != null)
+				conn.close();
+			if(stmt != null)
+				stmt.close();
+			if(rs !=null)
+				rs.close();
+		}
+		
+		return usu;
+	}
+	
 
 }

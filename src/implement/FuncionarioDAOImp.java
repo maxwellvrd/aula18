@@ -2,6 +2,7 @@ package implement;
 
 import java.sql.SQLException;
 import entidade.Funcionario;
+import entidade.Usuario;
 import persistencia.FuncionarioDAO;
 public class FuncionarioDAOImp {
 
@@ -22,5 +23,15 @@ public class FuncionarioDAOImp {
 			}
 			return Boolean.FALSE;
 		}
+		public boolean Check(Usuario usuario) {
+			try {
+				dao.control(usuario);
+				return Boolean.TRUE;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return Boolean.FALSE;
+		}
+	
 }
 
